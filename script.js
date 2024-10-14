@@ -74,6 +74,7 @@ function updateScoreBoard() {
     console.log('i functionen')
     if (totalValue) {
         var paragraph = document.getElementById("p");
+        paragraph.innerHTML = ''
         var text = document.createTextNode('Total: ' + totalValue);
         paragraph.appendChild(text);
     }
