@@ -73,11 +73,10 @@ function updateScoreBoard() {
     let totalValue = getCookieValue("total");
     console.log('i functionen')
     if (totalValue) {
-        console.log('update score?')
-        let element = document.getElementsByClassName('score')
-        element.innerHTML = 'Total: ' + totalValue;
+        var paragraph = document.getElementById("p");
+        var text = document.createTextNode('Total: ' + totalValue);
+        paragraph.appendChild(text);
     }
-    console.log(totalValue);
 }
 
 function increaseCookie() {
