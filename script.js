@@ -11,12 +11,10 @@ let dark = true
 
 function createCorrectShape(index) {
     shapes[index].create('mål', 'shapes')
-    console.log('skapar formen')
     shapes[index].create('formen1', 'formen')
 }
 
 function createIncorrectShapes(indexArr) {
-    // console.log('här?')
     for(let i = 0; i < 2; i++) {
         if (i = 1) {
             shapes[indexArr[1]].create('fake1', 'shapes')
@@ -59,15 +57,12 @@ addEventListener("load", (event) => {
     console.log('load')
     initCookie()
     newShapes();
-    // Make the DIV element draggable:
     dragElement(document.getElementById("formen"));
-    // console.log(arr);
-    // console.log(shapes[2])
+
 });
 
 function initCookie() {
     let cookiee = document.cookie;
-    // console.log(cookie);
     if (!cookiee) {
         document.cookie = "total=" + 0;
     }
@@ -76,8 +71,11 @@ function initCookie() {
 
 function updateScoreBoard() {
     let totalValue = getCookieValue("total");
-    if (totalValue !== null) {
-        document.getElementsByClassName('score').innerHTML = 'Total: ' + totalValue;
+    console.log('i functionen')
+    if (totalValue) {
+        console.log('update score?')
+        let element = document.getElementsByClassName('score')
+        element.innerHTML = 'Total: ' + totalValue;
     }
     console.log(totalValue);
 }
@@ -149,7 +147,6 @@ function dragElement(elmnt) {
 
     function getGoalCoordinates(id) {
         let element = document.getElementById(id)
-        // console.log(element)
         let rect = element.getBoundingClientRect();
         return rect;
     }
@@ -179,7 +176,6 @@ function dragElement(elmnt) {
         let element = document.getElementById('formen')
         element.style.top = (posy) + "px";
         element.style.left = (posx) + "px";
-        // getNewShape();
     }
 
     function getNewShape() {
@@ -188,8 +184,6 @@ function dragElement(elmnt) {
         element.style.left = (startpos.x) + "px";
         let randomNumber = Math.floor(Math.random() * 6);
 
-        // document.getElementById('shapes').innerHTML = ''
-        // document.getElementById('formen').innerHTML = ''
         newShapes()
         goalbox = document.getElementById('mål');
         goalbox.style.order = randomNumber;
