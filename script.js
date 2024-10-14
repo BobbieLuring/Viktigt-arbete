@@ -57,10 +57,7 @@ function toggleDark() {
 
 addEventListener("load", (event) => {
     console.log('load')
-    // initCookie(1)
-    var expirydate=new Date();
-    expirydate.setTime( expirydate.getTime()+(100*60*60*24*100) )
-    setCookie('cookiename','cookiedata',expirydate)
+    initCookie()
     newShapes();
     // Make the DIV element draggable:
     dragElement(document.getElementById("formen"));
@@ -68,23 +65,41 @@ addEventListener("load", (event) => {
     // console.log(shapes[2])
 });
 
-function initCookie(value) {
+function initCookie() {
     let cookiee = document.cookie;
     // console.log(cookie);
-    let name = 'test'
-    if (cookiee) {
-        console.log('i if')
-    } else {
-        console.log('i else')
-        // document.cookie = "total=" + 0
-        document.cookie = name + "=" + value
+    if (!cookiee) {
+        document.cookie = "total=" + 0;
     }
-    // document.cookie = "total=" + 0 + "; path=/";
+    updateScoreBoard()
 }
 
-function setCookie(name,value,expires){
-    document.cookie = name + "=" + value + ((expires==null) ? "" : ";expires=" + expires.toGMTString())
- }
+function updateScoreBoard() {
+    let totalValue = getCookieValue("total");
+    if (totalValue !== null) {
+        document.getElementsByClassName('score').innerHTML = 'Total: ' + totalValue;
+    }
+    console.log(totalValue);
+}
+
+function increaseCookie() {
+    value = getCookieValue("total");
+    value++
+    document.cookie = "total=" + value;
+    updateScoreBoard()
+}
+
+function getCookieValue(name) {
+    let nameEQ = name + "=";
+    let cookiesArray = document.cookie.split(';');
+    for (let i = 0; i < cookiesArray.length; i++) {
+        let cookie = cookiesArray[i].trim();
+        if (cookie.indexOf(nameEQ) === 0) {
+            return cookie.substring(nameEQ.length, cookie.length);
+        }
+    }
+    return null; // Return null if the cookie is not found
+}
 
 // Make the DIV element draggable:
 // dragElement(document.getElementById("formen"));
@@ -146,6 +161,7 @@ function dragElement(elmnt) {
         let diffX = goalCoordinates.x - moveAbleCoordinates.x
         let diffY = goalCoordinates.y - moveAbleCoordinates.y
         if ((diffX < 40 && diffX > -40) && (diffY < 40 && diffY > - 40)) {
+            increaseCookie()
             moveElmentToGoal(goalCoordinates.x, goalCoordinates.y);
             let element = document.getElementById('formen1')
             element.classList.toggle('animation')

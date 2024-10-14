@@ -19,7 +19,12 @@ body {
 
 .titel {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.filler {
+    width: 100px;
+    font-size: 25px;
 }
 
 .mål {
